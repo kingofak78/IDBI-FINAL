@@ -14,21 +14,7 @@
   
   <!-- Main Content Container -->
   <div class="user-detail-container">
-    <h2>User Details</h2>
-
-    <!-- User Details -->
-    <% if (user && Array.isArray(user) && user.length > 0) { %>
-      <% user.forEach((userDetails, index) => { %>
-        <div class="card">
-          <h3>Personal Information - <%= index + 1 %></h3>
-          <p><strong>Name:</strong> <%= userDetails.fullName %></p>
-          <p><strong>Mobile No:</strong> <%= userDetails.mobileNumber %></p>
-          <p><strong>DOB:</strong> <%= userDetails.dateOfBirth %></p>
-          <p><strong>PAN NO.:</strong> <%= userDetails.panNumber %></p>
-          <p><strong>Mother Name:</strong> <%= userDetails.mothersName %></p>
-        </div>
-      <% }) %>
-    <% } else if (user) { %> 
+    <h2>User Details</h2> 
       <div class="card">
         <h3>Personal Information</h3>
         <p><strong>Name:</strong> <%= user.fullName %></p>
