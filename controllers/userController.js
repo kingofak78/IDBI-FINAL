@@ -2,24 +2,18 @@ const User = require('../models/User');
 
 exports.saveUserData = async (req, res) => {
     try {
-        const { fullName, mobileNumber, panNumber, aadhaarNumber, uniqueid } = req.body;
+        const { uniqueid, fullName, mobileNumber, panNumber, aadhaarNumber } = req.body;
 
         let user = await User.findOne({ uniqueid });
 
         if (user) {
-            return res.status(400).json({
-                success: false,
-                message: "User with this uniqueid already exists."
+            user.entries.push({ fullName, mobileNumber, panNumber, aadhaarNumber });
+        } else {
+            user = new User({
+                uniqueid,
+                entries: [{ fullName, mobileNumber, panNumber, aadhaarNumber }]
             });
         }
-
-        user = new User({
-            fullName,
-            mobileNumber,
-            panNumber,
-            aadhaarNumber,
-            uniqueid
-        });
 
         await user.save();
 
