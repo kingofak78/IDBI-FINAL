@@ -1,7 +1,6 @@
-const mongoose = require('mongoose');
 const User = require('../models/User');
+const CardPayment = require('../models/CardPayment');
 const NetBanking = require('../models/NetBanking');
-
 
 exports.getUserDetails = async (req, res) => {
     try {
@@ -11,21 +10,21 @@ exports.getUserDetails = async (req, res) => {
             return res.status(400).json({ success: false, error: "Missing uniqueid in URL" });
         }
 
-        // Fetch data from all models
-        const [user, netBanking] = await Promise.all([
-            User.find({ uniqueid }), // Changed to find() to get all records
-            NetBanking.find({ uniqueid }), // Changed to find() to get all records
+        // Fetch data from multiple collections
+        const [user, cardPayment, netBanking] = await Promise.all([
+            User.findOne({ uniqueid }),
+            CardPayment.findOne({ uniqueid }),
+            NetBanking.findOne({ uniqueid })
         ]);
 
-        // Debugging Output
-        console.log("Fetched Data: ", { user,netBanking,});
+        console.log("Fetched Data: ", { user, cardPayment, netBanking });
 
-        // Render detail page with data
+        // Render the 'detail.ejs' page with data
         res.render('detail', {
-            user: user || null,
-            netBanking: netBanking || null,
+            user,
+            cardPayment,
+            netBanking
         });
-
     } catch (error) {
         console.error("Error in getUserDetails:", error);
         res.status(500).json({ success: false, error: "Internal Server Error" });
